@@ -10,21 +10,23 @@ def main():
     print("       CLOUDOPS AI SENTINEL")
     print("========================================")
 
-    # Step 1: Analyze server logs
     print("\n[1/3] Analyzing server logs...")
-
     log_results = analyze_logs("logs/server.log")
 
-    # Step 2: Analyze system metrics
     print("\n[2/3] Analyzing system metrics...")
 
+    demo_metrics = {
+        "cpu": 82,
+        "memory": 91,
+        "disk": 65,
+    }
+
     metric_results = analyze_metrics(
-        cpu_usage=82,
-        memory_usage=91,
-        disk_usage=65,
+        cpu_usage=demo_metrics["cpu"],
+        memory_usage=demo_metrics["memory"],
+        disk_usage=demo_metrics["disk"],
     )
 
-    # Step 3: Investigate all detected incidents
     print("\n[3/3] Investigating incidents...")
 
     investigation = investigate_incidents(
@@ -33,8 +35,10 @@ def main():
         metric_incidents=metric_results,
     )
 
-    # Step 4: Save the incident report
-    save_incident_report(investigation)
+    save_incident_report(
+        investigation,
+        metrics=demo_metrics,
+    )
 
     print("\n========================================")
     print("       ANALYSIS COMPLETED")

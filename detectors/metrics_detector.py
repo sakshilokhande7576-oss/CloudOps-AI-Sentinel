@@ -1,11 +1,9 @@
-
-import psutil
+﻿import psutil
 from pathlib import Path
 
 
 def get_system_metrics():
     """Collect real CPU, memory, and disk usage from this computer."""
-
     cpu_usage = psutil.cpu_percent(interval=1)
     memory_usage = psutil.virtual_memory().percent
     disk_usage = psutil.disk_usage(Path.home().anchor).percent
@@ -19,7 +17,6 @@ def get_system_metrics():
 
 def analyze_metrics(cpu_usage, memory_usage, disk_usage):
     """Detect resource usage above configured thresholds."""
-
     incidents = []
 
     if cpu_usage >= 80:
@@ -47,7 +44,6 @@ def analyze_metrics(cpu_usage, memory_usage, disk_usage):
 
 if __name__ == "__main__":
     metrics = get_system_metrics()
-
     analyze_metrics(
         cpu_usage=metrics["cpu"],
         memory_usage=metrics["memory"],
