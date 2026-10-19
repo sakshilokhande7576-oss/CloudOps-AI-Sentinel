@@ -3,14 +3,16 @@ from collections import Counter
 
 
 def determine_severity(log_errors, log_warnings, metric_incidents):
-    """Determine severity using clear incident rules."""
+    """Determine incident severity using clear rules."""
 
     error_counts = Counter(log_errors)
     repeated_errors = any(count >= 2 for count in error_counts.values())
 
+    # Repeated errors or multiple metric alerts are HIGH severity.
     if repeated_errors or len(metric_incidents) >= 2:
         return "HIGH"
 
+    # A single error, metric alert, or multiple warnings is MEDIUM.
     if log_errors or metric_incidents or len(log_warnings) >= 2:
         return "MEDIUM"
 
@@ -18,7 +20,7 @@ def determine_severity(log_errors, log_warnings, metric_incidents):
 
 
 def get_severity_reason(log_errors, log_warnings, metric_incidents):
-    """Explain the actual reason behind the incident severity."""
+    """Explain why the incident received its severity."""
 
     error_counts = Counter(log_errors)
     repeated_errors = any(count >= 2 for count in error_counts.values())
@@ -28,6 +30,12 @@ def get_severity_reason(log_errors, log_warnings, metric_incidents):
         return (
             "Repeated log errors and multiple resource alerts "
             "require priority investigation."
+        )
+
+    if repeated_errors and metric_incidents:
+        return (
+            "Repeated log errors and resource alerts detected; "
+            "investigate application and system health."
         )
 
     if repeated_errors:
