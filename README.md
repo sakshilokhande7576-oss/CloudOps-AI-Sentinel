@@ -1,239 +1,125 @@
 # CloudOps AI Sentinel
 
+**Local System Monitoring | Log Analysis | Incident Severity | Flask Dashboard**
 
-
-A local-first Python project for system resource monitoring, server log analysis, incident severity classification, and automated investigation recommendations.
-
-
+CloudOps AI Sentinel is a Python-based monitoring and incident investigation project that analyzes system resource usage and server log events to identify operational issues and generate actionable recommendations.
 
 ## Overview
 
+The project currently monitors the local Windows computer and analyzes sample server logs. It combines resource metrics, log analysis, rule-based severity classification, and investigation recommendations in a web dashboard and structured JSON report.
 
-
-CloudOps AI Sentinel combines system metrics and server log analysis to identify potential operational issues and produce a structured incident report.
-
-
-
-The project currently monitors the local Windows machine and analyzes sample server logs. It is designed as a foundation for future cloud operations monitoring.
-
-
+The project is designed as a foundation for future cloud operations monitoring.
 
 ## Features
 
-
-
-\- \*\*System Metrics Monitoring:\*\* Collects CPU, memory, and disk usage using `psutil`.
-
-\- \*\*Log Analysis:\*\* Detects error and warning events from server logs.
-
-\- \*\*Incident Severity Engine:\*\* Classifies incidents as HIGH, MEDIUM, or LOW using configurable rules.
-
-\- \*\*Severity Explanation:\*\* Explains why an incident received its severity level.
-
-\- \*\*Investigation Recommendations:\*\* Generates suggested actions based on detected issues.
-
-\- \*\*JSON Reporting:\*\* Saves findings, severity, system metrics, and recommendations.
-
-\- \*\*Web Dashboard:\*\* Displays monitoring results using Flask.
-
-\- \*\*Unit Testing:\*\* Tests metrics detection, severity classification, and severity explanations.
-
-
+- **System Monitoring:** Collects CPU, memory, and disk usage using `psutil`.
+- **Log Analysis:** Detects error and warning events from server logs.
+- **Incident Severity Engine:** Classifies incidents as HIGH, MEDIUM, or LOW using predefined rules.
+- **Severity Explanations:** Provides reasons for incident classifications.
+- **Investigation Recommendations:** Suggests actions based on detected issues.
+- **JSON Reporting:** Generates structured incident reports.
+- **Web Dashboard:** Displays system metrics, findings, severity, and recommendations using Flask.
+- **Unit Testing:** Tests metrics detection, severity classification, and severity explanations.
 
 ## Technology Stack
 
+- Python 3.11
+- Flask
+- psutil
+- unittest
+- HTML and CSS
+- JSON
+- Git and GitHub
 
-
-\- Python 3.11
-
-\- Flask
-
-\- psutil
-
-\- unittest
-
-\- HTML and CSS
-
-\- JSON
-
-\- Git and GitHub
-
-
-
-## Project Architecture
-
-
+## Architecture
 
 ```text
-
 CloudOps-AI-Sentinel/
-
-â”œâ”€â”€ app.py
-
-â”œâ”€â”€ main.py
-
-â”œâ”€â”€ detectors/
-
-â”‚   â”œâ”€â”€ log\_analyzer.py
-
-â”‚   â””â”€â”€ metrics\_detector.py
-
-â”œâ”€â”€ investigator/
-
-â”‚   â””â”€â”€ incident\_investigator.py
-
-â”œâ”€â”€ logs/
-
-â”‚   â””â”€â”€ server.log
-
-â”œâ”€â”€ reports/
-
-â”‚   â””â”€â”€ incident\_report.json
-
-â”œâ”€â”€ templates/
-
-â”‚   â””â”€â”€ dashboard.html
-
-â””â”€â”€ tests/
-
-&#x20;   â””â”€â”€ test\_pipeline.py
-
+├── app.py
+├── main.py
+├── detectors/
+│   ├── log_analyzer.py
+│   └── metrics_detector.py
+├── investigator/
+│   └── incident_investigator.py
+├── logs/
+│   └── server.log
+├── reports/
+├── templates/
+│   └── dashboard.html
+└── tests/
+    └── test_pipeline.py
 ```
 
-
+The incident report is generated locally when the application runs.
 
 ## How It Works
 
+1. Collects CPU, memory, and disk usage from the local computer.
+2. Reads the configured server log file.
+3. Detects log errors, warnings, and resource threshold violations.
+4. Calculates incident severity using predefined rules.
+5. Generates severity explanations and recommended actions.
+6. Produces a JSON incident report and displays results on the Flask dashboard.
 
+## Getting Started
 
-1\. Collects CPU, memory, and disk usage from the local computer.
+### Prerequisites
 
-2\. Reads the configured server log file.
+- Python 3.11
+- pip
+- Git (optional, for cloning the repository)
 
-3\. Detects log errors, warnings, and resource threshold violations.
+### Install Dependencies
 
-4\. Determines the overall incident severity.
-
-5\. Explains the severity and generates recommended actions.
-
-6\. Saves the results as a JSON report and displays them on a Flask dashboard.
-
-
-
-## Installation
-
-
-
-Install Python 3.11, then install the dependencies:
-
-
+From the project root directory, run:
 
 ```powershell
-
 python -m pip install flask psutil
-
 ```
 
+If Python is not available through the `python` command on Windows, use the full path to your Python executable.
 
-
-If `python` is not available in your Windows terminal, use the full path to your Python executable.
-
-
-
-## Run the Dashboard
-
-
-
-From the project root directory:
-
-
+### Run the Dashboard
 
 ```powershell
-
 python app.py
-
 ```
 
+Open the dashboard in your browser:
 
+http://127.0.0.1:5000/
 
-Open this address in your browser:
+Keep the terminal open while using the dashboard. Press `Ctrl + C` in the terminal to stop the server.
 
-
-
-```text
-
-http://127.0.0.1:5000
-
-```
-
-
-
-The dashboard runs locally on your computer.
-
-
-
-## Run Tests
-
-
+### Run Unit Tests
 
 ```powershell
-
 python -m unittest discover -s tests -v
-
 ```
-
-
 
 The current test suite contains 12 tests covering metrics detection, incident severity, and severity explanations.
 
+## Current Scope and Limitations
 
+- System metrics are collected from the local Windows computer.
+- Log analysis uses the project's sample server log file.
+- Severity classification uses predefined rules, not a trained machine-learning model.
+- Investigation recommendations are rule-based; a fully autonomous agentic investigation workflow is not yet implemented.
+- Remote Linux servers and AWS services are not currently connected.
+- The project is intended for learning and portfolio demonstration, not production incident response.
 
-## Current Limitations
+## Future Enhancements
 
-
-
-\- Metrics are collected from the local Windows computer, not a remote cloud server.
-
-\- The supplied server log is sample data and does not represent a live production server.
-
-\- Severity classification uses predefined rules rather than a trained machine-learning model.
-
-\- AWS services and remote infrastructure integrations are not currently connected.
-
-
-
-## Future Improvements
-
-
-
-\- Add monitoring for remote Linux servers.
-
-\- Integrate AWS CloudWatch metrics and logs.
-
-\- Add configurable alert thresholds.
-
-\- Introduce incident history and trend analysis.
-
-\- Explore agent-assisted investigation and root-cause analysis.
-
-
-
-## Disclaimer
-
-
-
-This project is intended for learning and portfolio demonstration. It is not yet a production-grade monitoring or incident-response platform.
-
-
+- Integrate remote Linux server monitoring.
+- Explore AWS CloudWatch metrics and log integration.
+- Add configurable monitoring thresholds.
+- Maintain incident history and trend analysis.
+- Develop agent-assisted investigation and root-cause analysis.
 
 ## Author
 
+**Sakshi Lokhande**
 
-
-\*\*Sakshi Lokhande\*\*
-
-
-
-\- GitHub: https://github.com/sakshilokhande7576-oss
-
-\- LinkedIn: https://linkedin.com/in/sakshi-lokhande-29b77825b
+- GitHub: https://github.com/sakshilokhande7576-oss
+- LinkedIn: https://linkedin.com/in/sakshi-lokhande-29b77825b
