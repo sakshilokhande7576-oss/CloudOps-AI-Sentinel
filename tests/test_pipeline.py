@@ -1,12 +1,30 @@
 
 import unittest
 
+from detectors.log_analyzer import analyze_logs
 from detectors.metrics_detector import analyze_metrics
 from investigator.incident_investigator import (
     determine_severity,
     get_severity_reason,
     investigate_incidents,
 )
+
+
+class TestLogAnalyzer(unittest.TestCase):
+
+    def test_missing_log_file_returns_warning(self):
+        result = analyze_logs(
+            "logs/this_file_does_not_exist.log"
+        )
+
+        self.assertEqual(result["errors"], [])
+        self.assertEqual(result["severity"], "LOW")
+        self.assertTrue(
+            any(
+                "Log file not found" in warning
+                for warning in result["warnings"]
+            )
+        )
 
 
 class TestMetricsDetector(unittest.TestCase):
